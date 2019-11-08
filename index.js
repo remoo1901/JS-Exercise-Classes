@@ -77,23 +77,28 @@ toString (){
     - A car which runs out of `fuel` while driving can't drive any more distance:
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
-
-function Car(model, milesPerGallon) {
-  this.model = model;
-  this.milesPerGallon = milesPerGallon;
-  this.tank = 0;
-  this.odometer = 0;
+class Car {
+  constructor(model, milesPerGallon){
+      this.model = model;
+      this.milesPerGallon = milesPerGallon;
+      this.tank = 0;
+      this.odometer = 0;
+  }
+  fill(gallons){
+      this.tank = this.tank + gallons;
+  }
+  drive(distance){
+      this.maxMileage = this.milesPerGallon * this.tank;
+      if(this.maxMileage > distance){
+          this.odometer = this.odometer + distance;
+          this.tank = Math.round(this.tank - (distance / this.milesPerGallon ))
+      } if (this.maxMileage <= distance){
+          this.odometer = this.odometer + this.maxMileage;
+          this.tank = 0;
+          return `I ran out of fuel at ${this.maxMileage} miles!`
+      }
+  }
 }
-
-Car.prototype.fill = function (gallons) {
-  this.tank = this.tank+gallons;
-}
-
-Car.prototype.drive = function (distance) {
-
-  this.odometer = this.odometer++
-}
-
 /*
   TASK 3
     - Write a Lambdasian class.
@@ -215,10 +220,15 @@ class ProjectManager extends Instructor{
     this.previousBackground = obj.previousBackground;
     this.className = obj.className;
     this.favSubjects= obj.favSubjects;
-    this.gradClassNme = obj.gradClassName;
+    this.gradClassName = obj.gradClassName;
     this.favInstructor = obj.favInstructor;
   }
-
+   standUp(channel){
+    return `${this.name} announces to ${channel}, @channel standy times!`
+   };
+   debugsCode(student, subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`
+   }
 }
 
 /*
